@@ -4,7 +4,7 @@ Remote Controller Android Application for FlightGear Flight Simulator.
 # About
 FlightGear Flight Simulator is a free, open source multi-platform flight simulator developed by the FlightGear project since 1997.
 The simulator runs on 32-bit & 64-bit Windows, Linux, macOS and more. As of now, the latest stable version is 2020.3.9, which was released on 13/06/2021.
-Learn more about FlightGear at https://www.flightgear.org/.
+Learn more about FlightGear at the [FlightGear Official Website](https://www.flightgear.org/).
 
 The FG Joystick app is an Android application which connects to the FlightGear Simulator using the IP Address of the computer running it, as well as the Port used for the program.
 The app allows you to first start the engine by tapping the Engine Start button, then to control the Throttle and the Rudder using two seekbars, as well as the Elevation and the Aileron using the large Joystick in the middle of the screen.
@@ -37,7 +37,7 @@ Follow to steps below:
 * Note: Rather than 6400, you are free to choose any other available port on your machine.
 
 # The Joystick App
-While the FlightGear Simulator is loading, find the IPv4 Address of the computer running the simulator. On Windows machines you can do so by typing the "ipconfig" command in the commandline, on Linux and MacOS machines, type the "ifconfig" command in the terminal.
+While the FlightGear Simulator is loading, find the IPv4 Address of the computer running the simulator. On Windows machines you can do so by typing the "ipconfig" command in the commandline. On Linux and MacOS machines, by typing the "ifconfig" command in the terminal.
 When the loading has finished, open up the Joystick application and type in the IP Address and the port which you chose when setting up the simulator. Make sure you're on the same Wireless Network as the computer running the simulator.
 <p align="center">
    <img src="https://github.com/or-gottman/FG_Joystick/blob/master/app/src/main/AppIPPort.png" alt="Demo GIF"/>
@@ -54,6 +54,12 @@ As mentioned earlier, those are the main controls available to use:
 5. **Turbo Button** - The yellow lightning button at the top right of the screen. This gives the aircraft a little boost. Use this button carefully.
 
 Have fun!
+
+# Class Diagram - UML
+<p align="center">
+   <img src="https://github.com/or-gottman/FG_Joystick/blob/master/app/src/main/Joystick_UML.png" alt="Demo GIF"/>
+</p>
+
 
 # Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
