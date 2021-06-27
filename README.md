@@ -1,7 +1,6 @@
 # FlightGear Remote Controller Android App
 Remote Controller Android Application for FlightGear Flight Simulator.
 
-# About
 FlightGear Flight Simulator is a free, open source multi-platform flight simulator developed by the FlightGear project since 1997.
 The simulator runs on 32-bit & 64-bit Windows, Linux, macOS and more. As of now, the latest stable version is 2020.3.9, which was released on 13/06/2021.
 Learn more about FlightGear at the [FlightGear Official Website](https://www.flightgear.org/).
