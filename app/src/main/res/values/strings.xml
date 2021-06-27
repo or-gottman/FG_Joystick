@@ -20,4 +20,6 @@
     <string name="MyIP">192.168.5.129</string>
     <string name="MyPort">6400</string>
     <string name="FlightGearJoystick">FlightGear Remote Controller</string>
+    <string name="engine_start">Engine Start Button</string>
+    <string name="turbo_button">Turbo Button</string>
 </resources>

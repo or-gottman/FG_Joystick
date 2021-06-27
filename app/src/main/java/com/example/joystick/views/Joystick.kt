@@ -19,8 +19,8 @@ import kotlin.math.sqrt
 class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     private var centerX: Float = 0f
     private var centerY: Float = 0f
-    private var baseRadius: Float = 0f
-    private var hatRadius: Float = 0f
+    private var backgroundRadius: Float = 0f
+    private var radius: Float = 0f
     private var joystickCallback: JoystickListener? = null
     private val ratio = 5
 
@@ -63,36 +63,36 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
 
             //Draw the base first before shading
 //            colors.setARGB(255, 100, 100, 100)
-            colors.setARGB(255, 255, 203, 0);
-            myCanvas.drawCircle(centerX, centerY, baseRadius, colors)
-            for (i in 1..(baseRadius / ratio).toInt()) {
+            colors.setARGB(200, 255, 203, 0);
+            myCanvas.drawCircle(centerX, centerY, backgroundRadius, colors)
+            for (i in 1..(backgroundRadius / ratio).toInt()) {
                 colors.setARGB(
-                    150 / i,
-                    255,
+                    50 ,
+                    0,
                     0,
                     0
                 ) //Gradually decrease the shade of black drawn to create a nice shading effect
                 myCanvas.drawCircle(
-                    newX - cos * hypotenuse * (ratio / baseRadius) * i,
-                    newY - sin * hypotenuse * (ratio / baseRadius) * i,
-                    i * (hatRadius * ratio / baseRadius),
+                    newX - cos * hypotenuse * (ratio / backgroundRadius) * i,
+                    newY - sin * hypotenuse * (ratio / backgroundRadius) * i,
+                    (i * (radius * 4.5 / backgroundRadius)).toFloat(),
                     colors
                 ) //Gradually increase the size of the shading effect
             }
 
             //Drawing the joystick hat
-            for (i in 0..(hatRadius / ratio).toInt()) {
+            for (i in 0..(radius / ratio).toInt()) {
                 colors.setARGB(
-                    255,
-                    (i * (216 * ratio / hatRadius)).toInt(),
-                    (i * (30 * ratio / hatRadius)).toInt(), (i * (91 * ratio / hatRadius)).toInt()
+                    255 - 2* i,
+                    (i * (216 * ratio / radius)).toInt(),
+                    (i * (30 * ratio / radius)).toInt(), (i * (91 * ratio / radius)).toInt()
                 ) //Change the joystick color for shading purposes
 //    colors.setARGB(255,216,30,91);
 
                 myCanvas.drawCircle(
                     newX,
                     newY,
-                    hatRadius - i.toFloat() * ratio / 10,
+                    radius - i.toFloat() * ratio / 3,
                     colors
                 ) //Draw the shading for the hat
             }
@@ -103,8 +103,8 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     override fun surfaceCreated(holder: SurfaceHolder) {
         centerX = (width / 2).toFloat()
         centerY = (height / 2).toFloat()
-        baseRadius = (width.coerceAtMost(height) / 4).toFloat()
-        hatRadius = (width.coerceAtMost(height) / 6).toFloat()
+        backgroundRadius = (width.coerceAtMost(height) / 5).toFloat()
+        radius = (width.coerceAtMost(height) / 6).toFloat()
         drawJoystick(centerX, centerY)
     }
 
@@ -113,14 +113,14 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
     override fun onTouch(v: View, e: MotionEvent): Boolean {
         if (v == this) {
             if (e.action != MotionEvent.ACTION_UP) {
-                val displacement =
+                val len =
                     sqrt(((e.x - centerX) * (e.x - centerX)) + ((e.y - centerY) * (e.y - centerY)))
 
                 // When in range
-                if (displacement < baseRadius) {
+                if (len < backgroundRadius) {
                     joystickCallback?.onJoystickMoved(
-                        (e.x - centerX) / baseRadius,
-                        (e.y - centerY) / baseRadius
+                        (e.x - centerX) / backgroundRadius,
+                        (e.y - centerY) / backgroundRadius
                     );
                     drawJoystick(e.x, e.y)
                 }
@@ -129,7 +129,7 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
                 else {
 
                     var centerOfCircle = Point(centerX.toDouble(), centerY.toDouble())
-                    var radiusAsDouble = baseRadius.toDouble()
+                    var radiusAsDouble = backgroundRadius.toDouble()
                     var userPoint = Point((e.x).toDouble(), (e.y).toDouble())
                     var intersections =
                         intersects(centerOfCircle, userPoint, centerOfCircle, radiusAsDouble, false)
@@ -154,8 +154,8 @@ class JoystickView : SurfaceView, SurfaceHolder.Callback, OnTouchListener {
                     }
 
                     joystickCallback?.onJoystickMoved(
-                        (constrainedX - centerX) / baseRadius,
-                        (constrainedY - centerY) / baseRadius
+                        (constrainedX - centerX) / (backgroundRadius),
+                        (constrainedY - centerY) / (backgroundRadius)
                     );
                     drawJoystick(constrainedX, constrainedY)
                 }
